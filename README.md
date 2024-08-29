@@ -48,6 +48,10 @@
 
 Для тестирования ссылок и регионов используйте следующую команду:
 
-```bash
+```
 node index.js <url> "<region>"
+```
+Пример команды:
+```
 node index.js https://www.vprok.ru/product/domik-v-derevne-dom-v-der-moloko-ster-3-2-950g--309202 "Санкт-Петербург и область"
+```
