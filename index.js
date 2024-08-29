@@ -18,24 +18,28 @@ function wait(ms) {
 		process.exit(1);
 	}
 
-	const browser = await puppeteer.launch({ headless: true });
+	const browser = await puppeteer.launch({ headless: false });
 	const page = await browser.newPage();
 
-	// Установка пользовательского агента для десктопной версии сайта
 	await page.setUserAgent(
 		'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.110 Safari/537.36'
 	);
 
-	// Установка размеров окна для десктопной версии сайта
 	await page.setViewport({ width: 1280, height: 800 });
 
 	try {
 		await page.goto(url, { waitUntil: 'domcontentloaded' });
 		await wait(5000);
 
+		await page.waitForSelector('.Region_regionIcon__oZ0Rt', {
+			visible: true,
+		});
 		await page.click('.Region_regionIcon__oZ0Rt');
-		await wait(5000);
 
+		await page.waitForSelector(
+			'.UiRegionListBase_item___ly_A.UiRegionListBase_bold__ezwq4',
+			{ visible: true }
+		);
 		const regionSelector = await page.evaluate(async region => {
 			const regions = Array.from(
 				document.querySelectorAll(
@@ -57,7 +61,7 @@ function wait(ms) {
 		await wait(5000);
 
 		const productName = await page.evaluate(() => {
-			const titleElement = document.querySelector('.Title_title__nvodu'); // Пример, возможно, вам нужно будет изменить селектор
+			const titleElement = document.querySelector('.Title_title__nvodu');
 			return titleElement ? titleElement.textContent.trim() : 'unknown-product';
 		});
 
