@@ -1,0 +1,4 @@
+Prices: 219 ₽/кг
+PriceOld: 259 ₽
+Rating: 4
+ReviewCount: 1710 отзывов
